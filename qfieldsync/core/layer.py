@@ -72,12 +72,14 @@ class LayerSource(object):
         self._action = None
         self._photo_naming = {}
         self._is_geometry_locked = None
+        self._select_expression = ""
         self.read_layer()
 
     def read_layer(self):
         self._action = self.layer.customProperty('QFieldSync/action')
         self._photo_naming = json.loads(self.layer.customProperty('QFieldSync/photo_naming') or '{}')
         self._is_geometry_locked = self.layer.customProperty('QFieldSync/is_geometry_locked', False)
+        self._select_expression = self.layer.customProperty('QFieldSync/select_expression')
 
     def apply(self):
         self.layer.setCustomProperty('QFieldSync/action', self.action)
@@ -88,6 +90,8 @@ class LayerSource(object):
             self.layer.setCustomProperty('QFieldSync/is_geometry_locked', True)
         else:
             self.layer.removeCustomProperty('QFieldSync/is_geometry_locked')
+
+        self.layer.setCustomProperty('QFieldSync/select_expression', self.select_expression)
 
     @property
     def action(self):
@@ -187,6 +191,14 @@ class LayerSource(object):
     @property
     def name(self):
         return self.layer.name()
+
+    @property
+    def select_expression(self):
+        return self._select_expression
+
+    @select_expression.setter
+    def select_expression(self, expression):
+        self._select_expression = expression
 
     def copy(self, target_path, copied_files, keep_existent=False):
         """

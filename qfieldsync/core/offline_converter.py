@@ -132,6 +132,9 @@ class OfflineConverter(QObject):
                 if layer_source.action == SyncAction.OFFLINE:
                     if self.project_configuration.offline_copy_only_aoi:
                         layer.selectByRect(self.extent)
+                        ids = layer.selected
+                    if self.project_configuration.use_layer_selection:
+                        layer.selectByExpression(layer_source.select_expression)
                     self.__offline_layers.append(layer)
                 elif layer_source.action == SyncAction.NO_ACTION:
                     copied_files = layer_source.copy(self.export_folder, copied_files)
@@ -158,7 +161,7 @@ class OfflineConverter(QObject):
                     offline_layer_ids = [l.id() for l in self.__offline_layers]
                     if not self.offline_editing.convertToOfflineProject(self.export_folder, gpkg_filename,
                                                                         offline_layer_ids,
-                                                                        self.project_configuration.offline_copy_only_aoi, self.offline_editing.GPKG):
+                                                                        self.project_configuration.use_layer_selection, self.offline_editing.GPKG):
                         raise Exception(self.tr("Error trying to convert layers to offline layers"))
 
             except AttributeError:
@@ -168,7 +171,7 @@ class OfflineConverter(QObject):
                     offline_layer_ids = [l.id() for l in self.__offline_layers]
                     if not self.offline_editing.convertToOfflineProject(self.export_folder, spatialite_filename,
                                                                         offline_layer_ids,
-                                                                        self.project_configuration.offline_copy_only_aoi):
+                                                                        self.project_configuration.use_layer_selection):
                         raise Exception(self.tr("Error trying to convert layers to offline layers"))
 
             # Disable project options that could create problems on a portable

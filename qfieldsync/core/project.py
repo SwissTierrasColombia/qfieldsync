@@ -14,6 +14,7 @@ class ProjectProperties(object):
     OFFLINE_COPY_ONLY_AOI = '/offlineCopyOnlyAoi'
     ORIGINAL_PROJECT_PATH = '/originalProjectPath'
     IMPORTED_FILES_CHECKSUMS = '/importedFilesChecksums'
+    USE_LAYER_SELECTION = '/useLayerSelection'
 
     class BaseMapType(object):
 
@@ -119,3 +120,12 @@ class ProjectConfiguration(object):
     @imported_files_checksums.setter
     def imported_files_checksums(self, value):
         self.project.writeEntry('qfieldsync', ProjectProperties.IMPORTED_FILES_CHECKSUMS, value)
+
+    @property
+    def use_layer_selection(self):
+        use_layer_selection_, _ = self.project.readBoolEntry('qfieldsync', ProjectProperties.USE_LAYER_SELECTION)
+        return use_layer_selection_
+
+    @use_layer_selection.setter
+    def use_layer_selection(self, value):
+        self.project.writeEntry('qfieldsync', ProjectProperties.USE_LAYER_SELECTION, value)
