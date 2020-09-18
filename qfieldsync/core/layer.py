@@ -79,7 +79,7 @@ class LayerSource(object):
         self._action = self.layer.customProperty('QFieldSync/action')
         self._photo_naming = json.loads(self.layer.customProperty('QFieldSync/photo_naming') or '{}')
         self._is_geometry_locked = self.layer.customProperty('QFieldSync/is_geometry_locked', False)
-        self._select_expression = self.layer.customProperty('QFieldSync/select_expression')
+        self._select_expression = self.layer.customProperty('QFieldSync/select_expression', '')
 
     def apply(self):
         self.layer.setCustomProperty('QFieldSync/action', self.action)
