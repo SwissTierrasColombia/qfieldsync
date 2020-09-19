@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>QFieldProjectConfigurationBase</class>
+ <class>QField</class>
  <widget class="QWidget" name="QField">
   <property name="geometry">
    <rect>
@@ -174,10 +174,24 @@
        <string>Offline Editing</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_5">
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="onlyOfflineCopyFeaturesInAoi">
+       <item row="2" column="0">
+        <widget class="QRadioButton" name="onlyOfflineCopySelectedFeatures">
          <property name="text">
-          <string>Only Copy Features in Area of Interest</string>
+          <string>Only copy selected features</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QRadioButton" name="onlyOfflineCopyFeaturesInAoi">
+         <property name="text">
+          <string>Only copy features in Area of Interest</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QRadioButton" name="offlineCopyAllFeatures">
+         <property name="text">
+          <string>Copy all layer features</string>
          </property>
         </widget>
        </item>
@@ -296,6 +310,7 @@
   </customwidget>
  </customwidgets>
  <resources/>
+ <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup"/>
  </buttongroups>

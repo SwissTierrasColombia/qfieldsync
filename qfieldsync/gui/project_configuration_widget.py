@@ -158,7 +158,10 @@ class ProjectConfigurationWidget(WidgetUi, QgsOptionsPageWidget):
         self.layerComboBox.setLayer(layer)
         self.mapUnitsPerPixel.setText(str(self.__project_configuration.base_map_mupp))
         self.tileSize.setText(str(self.__project_configuration.base_map_tile_size))
+
+        self.offlineCopyAllFeatures.setChecked(True)
         self.onlyOfflineCopyFeaturesInAoi.setChecked(self.__project_configuration.offline_copy_only_aoi)
+        self.onlyOfflineCopySelectedFeatures.setChecked(self.__project_configuration.offline_copy_only_selected_features)
 
         if self.unsupportedLayersList:
             self.unsupportedLayersLabel.setVisible(True)
@@ -208,6 +211,7 @@ class ProjectConfigurationWidget(WidgetUi, QgsOptionsPageWidget):
         self.__project_configuration.base_map_tile_size = int(self.tileSize.text())
 
         self.__project_configuration.offline_copy_only_aoi = self.onlyOfflineCopyFeaturesInAoi.isChecked()
+        self.__project_configuration.offline_copy_only_selected_features = self.onlyOfflineCopySelectedFeatures.isChecked()
 
     def baseMapTypeChanged(self):
         if self.singleLayerRadioButton.isChecked():
